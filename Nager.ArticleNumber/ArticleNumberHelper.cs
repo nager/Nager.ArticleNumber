@@ -41,6 +41,11 @@ namespace Nager.ArticleNumber
         /// <returns></returns>
         public static bool IsValidAsin(string asin)
         {
+            if (string.IsNullOrEmpty(asin))
+            {
+                return false;
+            }
+
             if (asin.Length != 10)
             {
                 return false;
