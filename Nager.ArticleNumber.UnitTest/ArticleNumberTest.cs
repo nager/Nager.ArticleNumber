@@ -60,7 +60,7 @@ namespace Nager.ArticleNumber.UnitTest
         }
 
         [TestMethod]
-        public void TestArtileNumberType()
+        public void TestArticleNumberType()
         {
             var articleNumberType = ArticleNumberHelper.GetArticleNumberType(null);
             Assert.AreEqual(articleNumberType, ArticleNumberType.UNKNOWN);
@@ -80,5 +80,115 @@ namespace Nager.ArticleNumber.UnitTest
             articleNumberType = ArticleNumberHelper.GetArticleNumberType("test");
             Assert.AreEqual(articleNumberType, ArticleNumberType.UNKNOWN);
         }
+
+        [TestMethod]
+        public void TestIsUpc()
+        {
+            var code = "";
+
+            // Valid tests
+            code = "042100005264";
+            Assert.IsTrue(ArticleNumberHelper.IsValidUpc(code), "IsValidUpc failed for " + code);
+            code = "614141007349";
+            Assert.IsTrue(ArticleNumberHelper.IsValidUpc(code), "IsValidUpc failed for " + code);
+            code = "012993101619";
+            Assert.IsTrue(ArticleNumberHelper.IsValidUpc(code), "IsValidUpc failed for " + code);
+
+            // Invalid tests
+            code = "042100005260";
+            Assert.IsFalse(ArticleNumberHelper.IsValidUpc(code), "IsValidUpc failed for " + code);
+            code = "00421000052644";
+            Assert.IsFalse(ArticleNumberHelper.IsValidUpc(code), "IsValidUpc failed for " + code);
+            code = "";
+            Assert.IsFalse(ArticleNumberHelper.IsValidUpc(code), "IsValidUpc failed for " + code);
+            code = null;
+            Assert.IsFalse(ArticleNumberHelper.IsValidUpc(code), "IsValidUpc failed for " + code);
+        }
+
+        [TestMethod]
+        public void TestConvertUpcToGtin()
+        {
+            var code = "";
+            var expected = "";
+            var actual = "";
+
+            // Valid cases - UPC
+            code = "042100005264";
+            expected = "00042100005264";
+            Assert.IsTrue(ArticleNumberHelper.TryConvertToGtin(code, out actual), code);
+            Assert.AreEqual(expected, actual);
+
+            code = "614141007349";
+            expected = "00614141007349";
+            Assert.IsTrue(ArticleNumberHelper.TryConvertToGtin(code, out actual), code);
+            Assert.AreEqual(expected, actual);
+
+            code = "012993101619";
+            expected = "00012993101619";
+            Assert.IsTrue(ArticleNumberHelper.TryConvertToGtin(code, out actual), code);
+            Assert.AreEqual(expected, actual);
+
+            code = "020529309620";
+            expected = "00020529309620";
+            Assert.IsTrue(ArticleNumberHelper.TryConvertToGtin(code, out actual), code);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestConvertEan13ToGtin()
+        {
+            var code = "";
+            var expected = "";
+            var actual = "";
+
+            // Valid - EAN
+            code = "4002515289693";
+            expected = "04002515289693";
+            Assert.IsTrue(ArticleNumberHelper.TryConvertToGtin(code, out actual), code);
+            Assert.AreEqual(expected, actual);
+
+            code = "4039784974876";
+            expected = "04039784974876";
+            Assert.IsTrue(ArticleNumberHelper.TryConvertToGtin(code, out actual), code);
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void TestConvertGtinToGtin()
+        {
+            var code = "";
+            var expected = "";
+            var actual = "";
+
+            // Valid - GTIN
+            code = "04002515289693";
+            expected = "04002515289693";
+            Assert.IsTrue(ArticleNumberHelper.TryConvertToGtin(code, out actual), code);
+            Assert.AreEqual(expected, actual);
+           
+            code = "10099429309556";
+            expected = "10099429309556";
+            Assert.IsTrue(ArticleNumberHelper.TryConvertToGtin(code, out actual), code);
+            Assert.AreEqual(expected, actual);
+
+            code = "30073202109001";
+            expected = "30073202109001";
+            Assert.IsTrue(ArticleNumberHelper.TryConvertToGtin(code, out actual), code);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestConvertEan8ToGtin()
+        {
+            var actual = "";
+
+            // Valid - GTIN
+            var code = "96385074";
+            var expected = "";
+            Assert.IsFalse(ArticleNumberHelper.TryConvertToGtin(code, out actual), code);
+            Assert.AreEqual(expected, actual);
+        }
+
     }
 }

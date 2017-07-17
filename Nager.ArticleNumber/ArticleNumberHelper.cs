@@ -144,6 +144,48 @@ namespace Nager.ArticleNumber
         }
 
         /// <summary>
+        /// Validate a UPC
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns>Whether or not the code is a valid UPC.</returns>
+        public static bool IsValidUpc(string code)
+        {
+            var articleNumberType = AnalyzeArticleNumberType(code);
+            if (articleNumberType == ArticleNumberType.UPC)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Attempts to convert a UPC or EAN13 to a GTIN. 
+        /// </summary>
+        /// <param name="code">Code to convert</param>
+        /// <param name="gtin">Result, will be empty if it was not a valid UPC or EAN13</param>
+        /// <returns>True on success, false on failure</returns>
+        public static bool TryConvertToGtin(string code, out string gtin)
+        {
+            var articleNumberType = AnalyzeArticleNumberType(code);
+
+            switch (articleNumberType)
+            {
+                case ArticleNumberType.UPC:
+                    gtin = "00" + code;
+                    return true;
+                case ArticleNumberType.EAN13:
+                    gtin = "0" + code;
+                    return true;
+                case ArticleNumberType.GTIN:
+                    gtin = code;
+                    return true;
+                default:
+                    gtin = "";
+                    return false;
+            }
+        }
+
+        /// <summary>
         /// Validate ISBN10
         /// </summary>
         /// <param name="isbn10"></param>
