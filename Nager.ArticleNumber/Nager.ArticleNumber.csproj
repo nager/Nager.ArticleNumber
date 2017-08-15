@@ -5,7 +5,7 @@
     <AssemblyVersion>1.0.3</AssemblyVersion>
     <FileVersion>1.0.3</FileVersion>
     <Version>1.0.3</Version>
-    <Copyright>Copyright ©  2017</Copyright>
+    <Copyright>Copyright © Tino Hager 2017</Copyright>
     <Authors>Tino Hager</Authors>
     <Company>nager</Company>
     <Description>Validate article numbers (EAN8, EAN13, GTIN, ISBN10, ISBN13, UPC, ASIN). Detect the article number type of a code</Description>
