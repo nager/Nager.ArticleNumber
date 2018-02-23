@@ -11,5 +11,6 @@
         ISBN13, //International Standard Book Number
         SKU, //Stock keeping unit
         UPC, //Universal Product Code
+        ISSN, //International Standard Serial Number
     }
 }

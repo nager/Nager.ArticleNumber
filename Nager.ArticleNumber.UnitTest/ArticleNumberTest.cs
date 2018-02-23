@@ -44,6 +44,37 @@ namespace Nager.ArticleNumber.UnitTest
         }
 
         [TestMethod]
+        public void TestIsIssn()
+        {
+            var isIssn = ArticleNumberHelper.IsValidIssn(null);
+            Assert.AreEqual(isIssn, false);
+
+            isIssn = ArticleNumberHelper.IsValidIssn(string.Empty);
+            Assert.AreEqual(isIssn, false);
+
+            isIssn = ArticleNumberHelper.IsValidIssn("2229-5518");
+            Assert.AreEqual(isIssn, true);
+
+            isIssn = ArticleNumberHelper.IsValidIssn("1365-201X");
+            Assert.AreEqual(isIssn, true);
+
+            isIssn = ArticleNumberHelper.IsValidIssn("1911-1479");
+            Assert.AreEqual(isIssn, true);
+
+            isIssn = ArticleNumberHelper.IsValidIssn("2049-3630");
+            Assert.AreEqual(isIssn, true);
+
+            isIssn = ArticleNumberHelper.IsValidIssn("XXXX-0000");
+            Assert.AreEqual(isIssn, false);
+
+            isIssn = ArticleNumberHelper.IsValidIssn("0000-000X");
+            Assert.AreEqual(isIssn, false);
+
+            isIssn = ArticleNumberHelper.IsValidIssn("0000-00X0");
+            Assert.AreEqual(isIssn, false);
+        }
+
+        [TestMethod]
         public void TestIsEan()
         {
             var isEan = ArticleNumberHelper.IsValidEan(null);
@@ -76,6 +107,9 @@ namespace Nager.ArticleNumber.UnitTest
 
             articleNumberType = ArticleNumberHelper.GetArticleNumberType("B007KKKJYK");
             Assert.AreEqual(articleNumberType, ArticleNumberType.ASIN);
+
+            articleNumberType = ArticleNumberHelper.GetArticleNumberType("1748-7188");
+            Assert.AreEqual(articleNumberType, ArticleNumberType.ISSN);
 
             articleNumberType = ArticleNumberHelper.GetArticleNumberType("test");
             Assert.AreEqual(articleNumberType, ArticleNumberType.UNKNOWN);
