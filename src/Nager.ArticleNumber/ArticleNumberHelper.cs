@@ -147,16 +147,16 @@ namespace Nager.ArticleNumber
             switch (articleNumberType)
             {
                 case ArticleNumberType.UPC:
-                    gtin = "00" + code;
+                    gtin = $"00{code}";
                     return true;
                 case ArticleNumberType.EAN13:
-                    gtin = "0" + code;
+                    gtin = $"0{code}";
                     return true;
                 case ArticleNumberType.GTIN:
                     gtin = code;
                     return true;
                 default:
-                    gtin = "";
+                    gtin = string.Empty;
                     return false;
             }
         }
@@ -210,7 +210,7 @@ namespace Nager.ArticleNumber
 
             if (isbn10.Contains("-"))
             {
-                isbn10 = isbn10.Replace("-", "");
+                isbn10 = isbn10.Replace("-", string.Empty);
             }
 
             if (isbn10.Length != 10)
@@ -218,7 +218,7 @@ namespace Nager.ArticleNumber
                 return false;
             }
 
-            if (!long.TryParse(isbn10.Substring(0, isbn10.Length - 1), out long temp))
+            if (!long.TryParse(isbn10.Substring(0, isbn10.Length - 1), out var temp))
             {
                 return false;
             }
@@ -259,7 +259,7 @@ namespace Nager.ArticleNumber
 
             if (isbn13.Contains("-"))
             {
-                isbn13 = isbn13.Replace("-", "");
+                isbn13 = isbn13.Replace("-", string.Empty);
             }
 
             if (isbn13.Length != 13)
@@ -267,7 +267,7 @@ namespace Nager.ArticleNumber
                 return false;
             }
 
-            if (!long.TryParse(isbn13, out long temp))
+            if (!long.TryParse(isbn13, out var temp))
             {
                 return false;
             }
