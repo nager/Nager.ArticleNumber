@@ -3,6 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace Nager.ArticleNumber
 {
+    /// <summary>
+    /// ArticleNumber Helper
+    /// </summary>
     public static class ArticleNumberHelper
     {
         private static ArticleNumberType AnalyzeArticleNumberType(string code)
@@ -218,7 +221,7 @@ namespace Nager.ArticleNumber
                 return false;
             }
 
-            if (!long.TryParse(isbn10.Substring(0, isbn10.Length - 1), out var temp))
+            if (!long.TryParse(isbn10.Substring(0, isbn10.Length - 1), out var _))
             {
                 return false;
             }
@@ -320,7 +323,10 @@ namespace Nager.ArticleNumber
                 }
                 else
                 {
-                    number = int.Parse(c.ToString());
+                    if (!int.TryParse(c.ToString(), out number))
+                    {
+                        return false;
+                    }
                 }
 
                 checksum += number * multi;
