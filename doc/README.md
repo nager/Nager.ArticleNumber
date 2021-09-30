@@ -2,12 +2,6 @@
 
 Validate article numbers (EAN8, EAN13, GTIN, ISBN10, ISBN13, ISSN, UPC, ASIN). Detect the article number type of a given code
 
-## nuget
-The package is available on [nuget](https://www.nuget.org/packages/Nager.ArticleNumber)
-```
-PM> install-package Nager.ArticleNumber
-```
-
 ## Examples
 
 ### Detect article number type

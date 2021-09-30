@@ -36,7 +36,7 @@ namespace Nager.ArticleNumber
                     return articleNumberType;
             }
 
-            code = string.Format("{0:00000000000000}", temp);
+            code = $"{temp:00000000000000}";
 
             var a = new int[13];
             a[0] = (code[0] - '0') * 3;
@@ -72,7 +72,12 @@ namespace Nager.ArticleNumber
         /// <returns></returns>
         public static ArticleNumberType GetArticleNumberType(string articleNumber)
         {
-            var articleNumberType = AnalyzeArticleNumberType(articleNumber);
+            if (string.IsNullOrEmpty(articleNumber))
+            {
+                return ArticleNumberType.UNKNOWN;
+            }
+
+            var articleNumberType = AnalyzeArticleNumberType(articleNumber.Trim());
             if (articleNumberType != ArticleNumberType.UNKNOWN)
             {
                 return articleNumberType;
@@ -128,7 +133,12 @@ namespace Nager.ArticleNumber
         /// <returns></returns>
         public static bool IsValidGtin(string code)
         {
-            var articleNumberType = AnalyzeArticleNumberType(code);
+            if (string.IsNullOrEmpty(code))
+            {
+                return false;
+            }
+
+            var articleNumberType = AnalyzeArticleNumberType(code.Trim());
             if (articleNumberType == ArticleNumberType.GTIN)
             {
                 return true;
@@ -145,7 +155,13 @@ namespace Nager.ArticleNumber
         /// <returns>True on success, false on failure</returns>
         public static bool TryConvertToGtin(string code, out string gtin)
         {
-            var articleNumberType = AnalyzeArticleNumberType(code);
+            if (string.IsNullOrEmpty(code))
+            {
+                gtin = string.Empty;
+                return false;
+            }
+
+            var articleNumberType = AnalyzeArticleNumberType(code.Trim());
 
             switch (articleNumberType)
             {
@@ -173,7 +189,12 @@ namespace Nager.ArticleNumber
         /// <returns></returns>
         public static bool IsValidEan(string code)
         {
-            var articleNumberType = AnalyzeArticleNumberType(code);
+            if (string.IsNullOrEmpty(code))
+            {
+                return false;
+            }
+
+            var articleNumberType = AnalyzeArticleNumberType(code.Trim());
             if (articleNumberType == ArticleNumberType.EAN8 || articleNumberType == ArticleNumberType.EAN13)
             {
                 return true;
@@ -189,7 +210,12 @@ namespace Nager.ArticleNumber
         /// <returns>Whether or not the code is a valid UPC.</returns>
         public static bool IsValidUpc(string code)
         {
-            var articleNumberType = AnalyzeArticleNumberType(code);
+            if (string.IsNullOrEmpty(code))
+            {
+                return false;
+            }
+
+            var articleNumberType = AnalyzeArticleNumberType(code.Trim());
             if (articleNumberType == ArticleNumberType.UPC)
             {
                 return true;
@@ -240,7 +266,7 @@ namespace Nager.ArticleNumber
             {
                 result = (remainder == 10);
             }
-            else if (int.TryParse(lastChar.ToString(), out sum))
+            else if (int.TryParse(lastChar.ToString(), out _))
             {
                 result = (remainder == lastChar - '0');
             }
@@ -270,7 +296,7 @@ namespace Nager.ArticleNumber
                 return false;
             }
 
-            if (!long.TryParse(isbn13, out var temp))
+            if (!long.TryParse(isbn13, out _))
             {
                 return false;
             }

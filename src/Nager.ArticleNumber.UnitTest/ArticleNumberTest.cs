@@ -86,6 +86,9 @@ namespace Nager.ArticleNumber.UnitTest
             isEan = ArticleNumberHelper.IsValidEan(string.Empty);
             Assert.IsFalse(isEan);
 
+            isEan = ArticleNumberHelper.IsValidEan("849172008847 ");
+            Assert.IsFalse(isEan);
+
             isEan = ArticleNumberHelper.IsValidEan("4002515289693");
             Assert.IsTrue(isEan);
 
