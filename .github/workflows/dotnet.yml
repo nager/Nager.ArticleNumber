@@ -22,7 +22,7 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: Install project dependencies
+    - name: Restore dependencies
       working-directory: ./src
       run: dotnet restore
     - name: Build
