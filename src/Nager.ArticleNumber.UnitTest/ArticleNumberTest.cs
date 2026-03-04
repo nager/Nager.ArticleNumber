@@ -100,25 +100,25 @@ namespace Nager.ArticleNumber.UnitTest
         public void TestArticleNumberType()
         {
             var articleNumberType = ArticleNumberHelper.GetArticleNumberType(null);
-            Assert.AreEqual(articleNumberType, ArticleNumberType.UNKNOWN);
+            Assert.AreEqual(ArticleNumberType.UNKNOWN, articleNumberType);
 
             articleNumberType = ArticleNumberHelper.GetArticleNumberType(string.Empty);
-            Assert.AreEqual(articleNumberType, ArticleNumberType.UNKNOWN);
+            Assert.AreEqual(ArticleNumberType.UNKNOWN, articleNumberType);
 
             articleNumberType = ArticleNumberHelper.GetArticleNumberType("4002515289693");
-            Assert.AreEqual(articleNumberType, ArticleNumberType.EAN13);
+            Assert.AreEqual(ArticleNumberType.EAN13, articleNumberType);
 
             articleNumberType = ArticleNumberHelper.GetArticleNumberType("978-3551559012");
-            Assert.AreEqual(articleNumberType, ArticleNumberType.ISBN13);
+            Assert.AreEqual(ArticleNumberType.ISBN13, articleNumberType);
 
             articleNumberType = ArticleNumberHelper.GetArticleNumberType("B007KKKJYK");
-            Assert.AreEqual(articleNumberType, ArticleNumberType.ASIN);
+            Assert.AreEqual(ArticleNumberType.ASIN, articleNumberType);
 
             articleNumberType = ArticleNumberHelper.GetArticleNumberType("1748-7188");
-            Assert.AreEqual(articleNumberType, ArticleNumberType.ISSN);
+            Assert.AreEqual(ArticleNumberType.ISSN, articleNumberType);
 
             articleNumberType = ArticleNumberHelper.GetArticleNumberType("test");
-            Assert.AreEqual(articleNumberType, ArticleNumberType.UNKNOWN);
+            Assert.AreEqual(ArticleNumberType.UNKNOWN, articleNumberType);
         }
 
         [TestMethod]
